@@ -1,5 +1,8 @@
 package com.stepdefinition;
 
+import java.util.Map;
+
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -29,28 +32,26 @@ public class Stepm {
 	}
 
 	@When("filling")
-	public void filling(DataTable dataTable) {
+	public void filling(DataTable dataTable1) {
 		
-		Map<string,String> CD= dataTable.asMaps()
-		
-		
-		
-	    
-	}
-
-	@When("submiting")
+		Map<String,String> CDM = dataTable1. asMap(String.class,String.class);
+		System.out.println(CDM);
+		driver.findElement(By.xpath("//label[@for='done']")).click();
+		driver.findElement(By.id("fname")).sendKeys(CDM.get("Fname"));
+		driver.findElement(By.id("lname")).sendKeys(CDM.get("Lname"));
+		driver.findElement(By.id("email")).sendKeys(CDM.get("email"));
+		driver.findElement(By.xpath("//textarea[@name='addr']")).sendKeys(CDM.get("addr"));
+		driver.findElement(By.id("telephoneno")).sendKeys(CDM.get("phone"));
+		}
+@When("submiting")
 	public void submiting() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+		driver.findElement(By.xpath("//input[@type='submit']")).click();
+
 	}
 
 	@Then("user see customer id")
 	public void user_see_customer_id() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
-	}
+		
+		Assert.assertTrue(driver.findElement(By.xpath("(//td[@align='center'])[2]")).isDisplayed());
 
-
-	
-
-}
+	}}
